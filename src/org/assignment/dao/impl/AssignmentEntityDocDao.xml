@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.AssignmentEntityDocDao">
+    <select id="getAssignmentEntityDocInBufferForAll" resultType="AssignmentEntityDoc">
+        select * from AssignmentEntityDoc_table where isHavePreView=TRUE
+    </select>
+    <select id="getAssignmentEntityDocList" parameterType="Integer" resultType="AssignmentEntityDoc">
+        select * from AssignmentEntityDoc_table where assignmentEntityID=#{assignmentEntityID}
+    </select>
+    <select id="getAssignmentEntityDocByProjectDoc" parameterType="Integer" resultType="AssignmentEntityDoc">
+        select * from AssignmentEntityDoc_table where assignmentEntityID=#{assignmentEntityID} and assignmentProjectDocID=#{assignmentProjectDocID}
+    </select>
+    <select id="getAssignmentEntityDoc" parameterType="Integer" resultType="AssignmentEntityDoc">
+        select * from AssignmentEntityDoc_table where assignmentEntityDocID=#{assignmentEntityDocID}
+    </select>
+    <delete id="delAssignmentEntityDoc" parameterType="Integer">
+        delete from AssignmentEntityDoc_table where assignmentProjectDocID=#{assignmentProjectDocID}
+    </delete>
+    <insert id="addAssignmentEntityDoc" parameterType="AssignmentEntityDoc">
+        insert into AssignmentEntityDoc_table(
+            assignmentEntityID,
+            assignmentProjectDocID,
+            assignmentEntityDocSaveLocation,
+            assignmentEntityDocState,
+            documentType,
+            isHavePreView
+        )values (
+            #{assignmentEntityID},
+            #{assignmentProjectDocID},
+            #{assignmentEntityDocSaveLocation},
+            #{assignmentEntityDocState},
+            #{documentType},
+            #{isHavePreView}
+        )
+    </insert>
+    <update id="updateAssignmentEntityDoc" parameterType="AssignmentEntityDoc">
+        update AssignmentEntityDoc_table
+        <set>
+            <if test="assignmentEntityDocState!=null and assignmentEntityDocState!=''">
+                assignmentEntityDocState=#{assignmentEntityDocState},
+            </if>
+            <if test="isHavePreView!=null and isHavePreView!=''">
+                isHavePreView=#{isHavePreView},
+            </if>
+            <if test="assignmentEntityDocPreViewSaveLocation!=null and assignmentEntityDocPreViewSaveLocation!=''">
+                assignmentEntityDocPreViewSaveLocation=#{assignmentEntityDocPreViewSaveLocation},
+            </if>
+        </set>
+        where assignmentEntityDocID=#{assignmentEntityDocID}
+    </update>
+</mapper>

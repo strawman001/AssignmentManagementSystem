@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.AssignmentProjectDocDao">
+    <select id="countAssignmentProjectDocNums" resultType="Integer">
+        select MAX(assignmentProjectDocID) from AssignmentProjectDoc_table
+    </select>
+    <select id="getAssignmentProjectDoc" parameterType="Integer" resultType="AssignmentProjectDoc">
+        select * from AssignmentProjectDoc_table where assignmentProjectDocID=#{assignmentProjectDocID}
+    </select>
+    <select id="getAssignmentProjectListDoc" parameterType="Integer" resultType="AssignmentProjectDoc">
+        select * from AssignmentProjectDoc_table where assignmentProjectID=#{assignmentProjectID}
+    </select>
+
+    <insert id="addAssignmentProjectDoc" parameterType="AssignmentProjectDoc">
+        insert into AssignmentProjectDoc_table(
+            assignmentProjectDocID,
+            documentType,
+            assignmentProjectID,
+            assignmentProjectDocName
+        )
+        values (
+            #{assignmentProjectDocID},
+            #{documentType},
+            #{assignmentProjectID},
+            #{assignmentProjectDocName}
+        )
+    </insert>
+
+    <delete id="delAssignmentProjectDoc" parameterType="Integer">
+        delete from AssignmentProjectDoc_table where assignmentProjectDocID=#{assignmentProjectDocID}
+    </delete>
+</mapper>

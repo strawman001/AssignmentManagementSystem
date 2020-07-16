@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.CourseNoticeDao">
+    <select id="findNoticeList" parameterType="Integer" resultType="CourseNotice">
+		select * from CourseNotice_table where courseID=#{courseID}
+	</select>
+
+    <insert id="addNotice" parameterType="CourseNotice">
+         insert into CourseNotice_table(
+            courseID,
+            courseNoticeTitle,
+            courseNoticeTime,
+            courseNoticeContent
+         )
+         values (
+            #{courseID},
+            #{courseNoticeTitle},
+            #{courseNoticeTime},
+            #{courseNoticeContent}
+         )
+    </insert>
+
+    <delete id="delNotice" parameterType="Integer">
+        delete from CourseNotice_table where courseNoticeID=#{courseNoticeID}
+    </delete>
+
+    <update id="updateNotice" parameterType="CourseNotice">
+        update CourseNotice_table set courseNoticeContent=#{courseNoticeContent} where courseNoticeID=#{courseNoticeID}
+    </update>
+</mapper>

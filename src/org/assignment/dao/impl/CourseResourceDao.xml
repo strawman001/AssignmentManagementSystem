@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.CourseResourceDao">
+    <select id="findCourseResourceList" parameterType="Integer" resultType="CourseResource">
+        select * from CourseResource_table where courseID=#{courseID}
+    </select>
+    <select id="findCourseResource" parameterType="Integer" resultType="CourseResource">
+        select * from CourseResource_table where courseResourceID=#{courseResourseID}
+    </select>
+
+    <insert id="addCourseResource" parameterType="CourseResource">
+        insert into CourseResource_table(
+            courseID,
+            courseResourceName,
+            documentType,
+            uploadTime,
+            courseResourceSaveLocation
+		)
+		values(
+            #{courseID},
+            #{courseResourceName},
+            #{documentType},
+            #{uploadTime},
+            #{courseResourceSaveLocation}
+		)
+    </insert>
+	
+	<delete id="delCourseResource" parameterType="Integer">
+		delete from CourseResource_table where courseResourceID=#{courseResourceID}
+	</delete>
+	
+	
+	
+</mapper>

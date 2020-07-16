@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.AssignmentProjectDao">
+    <select id="countAssignmentProjectNums" resultType="Integer">
+        select MAX(assignmentProjectID) from AssignmentProject_table
+    </select>
+
+    <select id="getAssignmentProject" parameterType="Integer" resultType="AssignmentProject">
+        select * from AssignmentProject_table where assignmentProjectID=#{assignmentProjectID}
+    </select>
+
+    <select id="getAssignmentProjectList" parameterType="Integer" resultType="AssignmentProject">
+        select * from AssignmentProject_table where courseID=#{courseID}
+    </select>
+
+    <delete id="delAssignmentProject" parameterType="Integer">
+        delete from AssignmentProject_table where assignmentProjectID=#{assignmentProjectID}
+    </delete>
+
+    <insert id="addAssignmentProject" parameterType="AssignmentProject">
+        insert into AssignmentProject_table(
+            assignmentProjectID,
+            courseID,
+            assignmentProjectName,
+            assignmentProjectInfo,
+            assignmentProjectProportion,
+            assignmentProjectDeadLine
+        )
+        values (
+            #{assignmentProjectID},
+            #{courseID},
+            #{assignmentProjectName},
+            #{assignmentProjectInfo},
+            #{assignmentProjectProportion},
+            #{assignmentProjectDeadLine}
+        )
+    </insert>
+
+    <update id="updateAssignmentProject" parameterType="AssignmentProject">
+        update AssignmentProject_table
+        <set>
+            <if test="assignmentProjectInfo!=null and assignmentProjectInfo!=''">
+                assignmentProjectInfo=#{assignmentProjectInfo},
+            </if>
+            <if test="assignmentProjectProportion!=null and assignmentProjectProportion!=''">
+                assignmentProjectProportion=#{assignmentProjectProportion},
+            </if>
+            <if test="assignmentProjectDeadLine!=null and assignmentProjectDeadLine!=''">
+                assignmentProjectDeadLine=#{assignmentProjectDeadLine},
+            </if>
+        </set>
+        where assignmentProjectID=#{assignmentProjectID}
+    </update>
+
+</mapper>

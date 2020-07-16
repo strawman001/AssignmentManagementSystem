@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.assignment.dao.AssignmentEntityDao">
+    <select id="getAssignmentEntityList" parameterType="Integer" resultType="AssignmentEntity">
+        select * from AssignmentEntity_table where assignmentProjectID=#{assignmentProjectID}
+    </select>
+    <select id="getAssignmentEntity" parameterType="Integer" resultType="AssignmentEntity">
+        select * from AssignmentEntity_table where assignmentEntityID=#{assignmentEntityID}
+    </select>
+    <select id="getAssignmentEntityByStudent" resultType="AssignmentEntity">
+        select * from AssignmentEntity_table where assignmentProjectID=#{assignmentProjectID} and studentCode=#{studentCode}
+    </select>
+
+    <delete id="delAssignmentEntity" parameterType="Integer">
+        delete from AssignmentEntity_table where assignmentProjectID=#{assignmentProjectID}
+    </delete>
+
+    <update id="updateAssignmentEntity" parameterType="AssignmentEntity">
+        update AssignmentEntity_table
+        <set>
+            <if test="assignmentEntityScore!=null and assignmentEntityScore!=''">
+                assignmentEntityScore=#{assignmentEntityScore},
+            </if>
+            <if test="assignmentEntityComment!=null and assignmentEntityComment!=''">
+                assignmentEntityComment=#{assignmentEntityComment},
+            </if>
+            <if test="assignmentEntityTime!=null and assignmentEntityTime!=''">
+                assignmentEntityTime=#{assignmentEntityTime},
+            </if>
+            <if test="assignmentEntityState!=null and assignmentEntityState!=''">
+                assignmentEntityState=#{assignmentEntityState},
+            </if>
+        </set>
+        where assignmentEntityID=#{assignmentEntityID}
+    </update>
+
+    <insert id="addAssignmentEntity" parameterType="AssignmentEntity">
+        insert into AssignmentEntity_table(
+            assignmentProjectID,
+            studentCode,
+            assignmentEntityState
+        )
+        values (
+            #{assignmentProjectID},
+            #{studentCode},
+            #{assignmentEntityState}
+        )
+    </insert>
+</mapper>
